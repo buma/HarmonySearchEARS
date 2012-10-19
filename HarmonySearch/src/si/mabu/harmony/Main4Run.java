@@ -12,8 +12,8 @@ public class Main4Run {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		Task t = new Task(EnumStopCriteria.EVALUATIONS, 3000, 0.0001,
-				new ProblemSphere(5));
+		Task t = new Task(EnumStopCriteria.EVALUATIONS, 500, 0.0001,
+				new ProblemSphere(3));
 		HarmonySearch test = new HarmonySearch();
 		try {
 			System.out.println(test.run(t));
