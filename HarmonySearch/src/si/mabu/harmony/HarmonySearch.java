@@ -39,12 +39,12 @@ public class HarmonySearch extends Algorithm {
 	 * Initialize memory with mem_size * factor. Then returns first mem_size individuals.
 	 * @throws StopCriteriaException
 	 */
-	private List<Harmony> initialize_harmony_memory(Task taskProblem) throws StopCriteriaException {
-		List<Harmony> memory = new ArrayList<Harmony>(mem_size * factor);
+	private List<Individual> initialize_harmony_memory(Task taskProblem) throws StopCriteriaException {
+		List<Individual> memory = new ArrayList<Individual>(mem_size * factor);
 		for(int i = 0; i < (mem_size * factor); i++) {
-			memory.add(new Harmony(taskProblem.getRandomIndividual()));
+			memory.add(taskProblem.getRandomIndividual());
 		}
-		Collections.sort(memory);
+		Collections.sort(memory, new SortIndividualByFitness());
 		return memory.subList(0, mem_size);
 	}
 	
@@ -53,9 +53,9 @@ public class HarmonySearch extends Algorithm {
 		max_iter = taskProblem.getMaxEvaluations();
 		factor = taskProblem.getDimensions();
 		Individual best = taskProblem.getRandomIndividual();
-		List <Harmony> memory = initialize_harmony_memory(taskProblem);
+		List <Individual> memory = initialize_harmony_memory(taskProblem);
 		System.out.println("run");
-		for(Harmony mem : memory) {
+		for(Individual mem : memory) {
 			System.out.println(mem);
 		}
 		System.out.println(memory.size());
