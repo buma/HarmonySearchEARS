@@ -102,7 +102,7 @@ public class HarmonySearch extends Algorithm {
 			else
 			{
 				//DONE: has to be random number valid for this task
-				ds[i] = taskProblem.feasible(random_double_in_constraints(intervalL[i], intervalR[i]), i);
+				ds[i] = random_double_in_constraints(intervalL[i], intervalR[i]);
 			}
 		}
 		return ds;
