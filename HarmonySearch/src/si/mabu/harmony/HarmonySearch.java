@@ -86,6 +86,8 @@ public class HarmonySearch extends Algorithm {
 	 */
 	private double[] create_harmony(List<Individual> memory, Task taskProblem) {
 		double[] ds = new double[this.factor];
+		double[] intervalL = taskProblem.getIntervalLeft();
+		double[] intervalR = taskProblem.getIntervalRight();
 		for (int i = 0; i < this.factor; i++) {
 			if (random.nextDouble() < this.consid_rate) {
 				if (random.nextDouble() < this.adjust_rate) {
@@ -100,7 +102,7 @@ public class HarmonySearch extends Algorithm {
 			else
 			{
 				//DONE: has to be random number valid for this task
-				ds[i] = taskProblem.feasible(random_double_in_constraints(-5.0, 5.0), i);
+				ds[i] = taskProblem.feasible(random_double_in_constraints(intervalL[i], intervalR[i]), i);
 			}
 		}
 		return ds;
