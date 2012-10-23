@@ -8,6 +8,7 @@ import java.util.Random;
 import org.um.feri.ears.algorithms.Algorithm;
 import org.um.feri.ears.algorithms.AlgorithmInfo;
 import org.um.feri.ears.algorithms.Author;
+import org.um.feri.ears.algorithms.EnumAlgorithmParameters;
 import org.um.feri.ears.problems.Individual;
 import org.um.feri.ears.problems.StopCriteriaException;
 import org.um.feri.ears.problems.Task;
@@ -17,17 +18,31 @@ public class HarmonySearch extends Algorithm {
 	boolean debug = false;
 	
 	int mem_size = 20;
-	double consid_rate = 0.95;
-	double adjust_rate = 0.7;
+	double consid_rate = 0.95; //r_accept
+	double adjust_rate = 0.7; //r_pa
 	double range = 0.05;
 	int max_iter = 0;
 	int factor = 1;
 	Random random;
 	
 	public HarmonySearch() {
+		this(20, 0.95, 0.7, 0.05);
+	}
+	
+	public HarmonySearch(int mem_size, double consid_rate, double adjust_rate, double range) {
+		this.mem_size = mem_size;
+		this.consid_rate = consid_rate;
+		this.adjust_rate = adjust_rate;
+		this.range = range;
 		this.debug = false;
 		ai = new AlgorithmInfo("", "", "HS", "Harmony Search");
 		au = new Author("mabu", "N/A");
+		resetDefaultsBeforNewRun();
+		
+		ai.addParameter(EnumAlgorithmParameters.POP_SIZE, "" + mem_size);
+		ai.addParameter(EnumAlgorithmParameters.CONSIDER, "" + consid_rate);
+		ai.addParameter(EnumAlgorithmParameters.PITCH_ADJUSTMENT, "" + adjust_rate);
+		ai.addParameter(EnumAlgorithmParameters.PITCH_BANDWITH, "" + range);
 	}
 	
 	public HarmonySearch(boolean d) {
