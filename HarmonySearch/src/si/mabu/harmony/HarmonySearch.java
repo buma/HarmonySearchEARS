@@ -2,6 +2,7 @@ package si.mabu.harmony;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.EnumMap;
 import java.util.List;
 import java.util.Random;
 
@@ -9,6 +10,8 @@ import org.um.feri.ears.algorithms.Algorithm;
 import org.um.feri.ears.algorithms.AlgorithmInfo;
 import org.um.feri.ears.algorithms.Author;
 import org.um.feri.ears.algorithms.EnumAlgorithmParameters;
+import org.um.feri.ears.algorithms.es.ES1p1sAlgorithm;
+import org.um.feri.ears.benchmark.EnumBenchmarkInfoParameters;
 import org.um.feri.ears.problems.Individual;
 import org.um.feri.ears.problems.StopCriteriaException;
 import org.um.feri.ears.problems.Task;
@@ -136,6 +139,68 @@ public class HarmonySearch extends Algorithm {
 		}
 		
 		return best;
+	}
+
+	@Override
+	public List<Algorithm> getAlgorithmParameterTest(
+			EnumMap<EnumBenchmarkInfoParameters, String> parameters,
+			int maxCombinations) {
+		List<Algorithm> alternative = new ArrayList<Algorithm>();
+        if (maxCombinations == 1) {
+            alternative.add(this);
+        } else {
+        	double paramCombinations[][] =  { // {k, c}
+            {20, 0.1, 0.7, 0.05 },
+            {20, 0.1, 0.7, 0.1 },
+            {20, 0.1, 0.9, 0.05 },
+            {20, 0.7, 0.9, 0.05 },
+            {20, 0.7, 0.85, 0.05 },
+            {20, 0.95, 0.7, 0.05},
+            {20, 0.95, 0.7, 0.1},
+            {20, 0.95, 0.85, 0.1},
+            };
+        	/*double paramCombinations[][] = new double[121][4];
+            int count = 0;
+			paramCombinations[count][0] = 20;
+			paramCombinations[count][1] = 0.95;
+			paramCombinations[count][2] = 0.7;
+			paramCombinations[count][3] = 0.05;
+			count++;
+
+            
+            double consid = 0.7;
+            double adjust = 0.0;
+            double range = 0.05;
+            
+            while (consid < 1) {
+            	adjust = 0.0;
+            	while (adjust < 1) {
+            		//range = 0.0;
+            		//while (range < 0.2) {
+            			//for (int mem_size=20; mem_size < 60; mem_size+=10) {
+            				paramCombinations[count][0] = 30;
+                			paramCombinations[count][1] = consid;
+                			paramCombinations[count][2] = adjust;
+                			paramCombinations[count][3] = range;
+                			count++;
+            			//}
+            			//range +=0.05;
+            			
+            		//}
+            		adjust +=0.05;
+            		
+            		
+            	}
+            	consid +=0.05;
+            }
+            System.err.println(count);*/
+            int counter = 0;
+            for (int i = 0; (i < paramCombinations.length) && (counter < maxCombinations); i++) {
+                alternative.add(new HarmonySearch((int)paramCombinations[i][0], paramCombinations[i][1], paramCombinations[i][2], paramCombinations[i][3]));
+                counter++;
+            }
+        }
+        return alternative;
 	}
 
 	@Override
