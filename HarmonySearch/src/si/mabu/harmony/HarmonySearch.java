@@ -38,7 +38,9 @@ public class HarmonySearch extends Algorithm {
 		this.adjust_rate = adjust_rate;
 		this.range = range;
 		this.debug = false;
-		ai = new AlgorithmInfo("", "", "HS", "Harmony Search");
+		ai = new AlgorithmInfo("Harmony Search",
+				"@book{brownlee2011clever,title={Clever Algorithms: Nature-Inspired Programming Recipes},  author={Brownlee, J.},  isbn={9781446785065},  url={http://books.google.si/books?id=SESWXQphCUkC},  year={2011},  publisher={Lulu.com}}",
+				"HS", "Harmony Search based on the description by Yang, with refinement from Geem.");
 		au = new Author("mabu", "N/A");
 		resetDefaultsBeforNewRun();
 		
